@@ -1,7 +1,8 @@
 const functions = [head, body, leftHand, rightHand, leftLeg, rightLeg];
 let tryIndex = 0;
-let chosenChars = [];
 let winningIndex = 0;
+let chosenChars = [];
+
 
 const words = [
   "Toyota",
@@ -48,7 +49,6 @@ for (let i = 0; i < word.length; i++) {
   blineDiv.style.width = "15px";
   divWrapper.appendChild(letterDiv);
   divWrapper.appendChild(blineDiv);
-
   answerSection.appendChild(divWrapper);
 }
 
@@ -67,17 +67,22 @@ const letterClick = (index) => {
   let upperCaseWord = word.toUpperCase();
   let upperCaseLetter = letter.toUpperCase();
 
+  // Check if the clicked letter is present in the word
   if (upperCaseWord.includes(upperCaseLetter)) {
     for (let i = 0; i < upperCaseWord.length; i++) {
       if (upperCaseWord[i] === upperCaseLetter) {
+        if (!chosenChars.includes(upperCaseLetter))
+          chosenChars.push(upperCaseLetter);
+        else return;
+
+        console.log(chosenChars);
+
         document.getElementById(i).style.visibility = "visible";
-        if (letters[index].style.backgroundColor == "green") {
-          return;
-        }
+
         winningIndex++;
         if (winningIndex == word.length) {
           setTimeout(() => {
-            alert("YOU SURVIVED");
+            alert("YOU SURVIVED!");
             location.reload();
           }, 200);
         }
@@ -85,18 +90,19 @@ const letterClick = (index) => {
     }
     letters[index].style.backgroundColor = "green";
   } else {
-    if (letters[index].style.backgroundColor == "red") {
-      return;
-    }
+    if (!chosenChars.includes(upperCaseLetter))
+      chosenChars.push(upperCaseLetter);
+    else return;
+
     functions[tryIndex]();
     letters[index].style.backgroundColor = "red";
     if (tryIndex == 5) {
-      console.log("YOU DIED");
+      console.log("YOU DIED!");
       for (let i = 0; i < upperCaseWord.length; i++) {
         document.getElementById(i).style.visibility = "visible";
       }
       setTimeout(() => {
-        alert("YOU DIED");
+        alert("YOU DIED!");
         location.reload();
       }, 300);
       return;
