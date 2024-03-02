@@ -40,7 +40,7 @@ for (let i = 0; i < word.length; i++) {
 
   let blineDiv = document.createElement("div");
   blineDiv.style.borderBottom = "2px solid black";
-  blineDiv.style.width = "20px";
+  blineDiv.style.width = "15px";
   divWrapper.appendChild(letterDiv);
   divWrapper.appendChild(blineDiv);
 
