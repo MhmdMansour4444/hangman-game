@@ -50,6 +50,7 @@ for (let i = 0; i < word.length; i++) {
   answerSection.appendChild(divWrapper);
 }
 
+//making them clickable using queryselector
 let divs = document.querySelectorAll(".letter");
 divs.forEach((el, index) => {
   el.addEventListener("click", (e) => {
@@ -64,17 +65,16 @@ const letterClick = (index) => {
   let upperCaseWord = word.toUpperCase();
   let upperCaseLetter = letter.toUpperCase();
 
-  // Check if the clicked letter is present in the word
+  // Check if the clicked letter is present in the word and showing it in answer section
   if (upperCaseWord.includes(upperCaseLetter)) {
     for (let i = 0; i < upperCaseWord.length; i++) {
       if (upperCaseWord[i] === upperCaseLetter) {
         document.getElementById(i).style.visibility = "visible";
+        //we made it so that it depends on color we determine the win-loss 
         if (letters[index].style.backgroundColor == "green") {
           return;
         }
-
-
-        // Show the letter by setting visibility to "visible"
+        
         document.getElementById(i).style.visibility = "visible";
 
         winningIndex++;
@@ -108,6 +108,7 @@ const letterClick = (index) => {
   }
 };
 
+//keyboard press now available to use 
 document.addEventListener("keypress", (event) => {
   const key = event.key.toUpperCase();
   console.log(key);
