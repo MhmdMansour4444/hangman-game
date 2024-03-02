@@ -1,7 +1,6 @@
 const functions = [head, body, leftHand, rightHand, leftLeg, rightLeg];
 let tryIndex = 0;
 let winningIndex = 0;
-let chosenChars = [];
 
 
 const words = [
@@ -59,7 +58,6 @@ divs.forEach((el, index) => {
     letterClick(index);
   });
 });
-
 const letterClick = (index) => {
   let letters = document.getElementsByClassName("letter");
   let letter = letters[index].innerHTML;
@@ -71,18 +69,19 @@ const letterClick = (index) => {
   if (upperCaseWord.includes(upperCaseLetter)) {
     for (let i = 0; i < upperCaseWord.length; i++) {
       if (upperCaseWord[i] === upperCaseLetter) {
-        if (!chosenChars.includes(upperCaseLetter))
-          chosenChars.push(upperCaseLetter);
-        else return;
+        document.getElementById(i).style.visibility = "visible";
+        if (letters[index].style.backgroundColor == "green") {
+          return;
+        }
 
-        console.log(chosenChars);
 
+        // Show the letter by setting visibility to "visible"
         document.getElementById(i).style.visibility = "visible";
 
         winningIndex++;
         if (winningIndex == word.length) {
           setTimeout(() => {
-            alert("YOU SURVIVED!");
+            alert("You WON");
             location.reload();
           }, 200);
         }
@@ -90,19 +89,18 @@ const letterClick = (index) => {
     }
     letters[index].style.backgroundColor = "green";
   } else {
-    if (!chosenChars.includes(upperCaseLetter))
-      chosenChars.push(upperCaseLetter);
-    else return;
-
+    if (letters[index].style.backgroundColor == "red") {
+      return;
+    }
     functions[tryIndex]();
     letters[index].style.backgroundColor = "red";
     if (tryIndex == 5) {
-      console.log("YOU DIED!");
+      console.log("u lost!!");
       for (let i = 0; i < upperCaseWord.length; i++) {
         document.getElementById(i).style.visibility = "visible";
       }
       setTimeout(() => {
-        alert("YOU DIED!");
+        alert("You LOST");
         location.reload();
       }, 300);
       return;
