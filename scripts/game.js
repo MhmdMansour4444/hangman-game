@@ -2,7 +2,6 @@ const functions = [head, body, leftHand, rightHand, leftLeg, rightLeg];
 let tryIndex = 0;
 let winningIndex = 0;
 
-
 const words = [
   "Toyota",
   "Honda",
@@ -81,7 +80,7 @@ const letterClick = (index) => {
         winningIndex++;
         if (winningIndex == word.length) {
           setTimeout(() => {
-            alert("You WON");
+            alert("YOU WON");
             location.reload();
           }, 200);
         }
@@ -95,12 +94,12 @@ const letterClick = (index) => {
     functions[tryIndex]();
     letters[index].style.backgroundColor = "red";
     if (tryIndex == 5) {
-      console.log("u lost!!");
+      console.log("YOU LOST");
       for (let i = 0; i < upperCaseWord.length; i++) {
         document.getElementById(i).style.visibility = "visible";
       }
       setTimeout(() => {
-        alert("You LOST");
+        alert("YOU LOST");
         location.reload();
       }, 300);
       return;
