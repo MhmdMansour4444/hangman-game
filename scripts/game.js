@@ -1,10 +1,15 @@
+const functions = [head, body, leftHand, rightHand, leftLeg, rightLeg];
+let tryIndex = 0;
+let chosenChars = [];
+let winningIndex = 0;
+
 const words = [
   "Toyota",
   "Honda",
   "Ford",
   "Chevrolet",
   "BMW",
-  "Mercedes-Benz",
+  "MercedesBenz",
   "Audi",
   "Volkswagen",
   "Tesla",
@@ -32,7 +37,7 @@ for (let i = 0; i < word.length; i++) {
   let divWrapper = document.createElement("div");
   divWrapper.style.display = "inline-block";
   let letterDiv = document.createElement("div");
-  
+
   letterDiv.innerHTML = word[i];
   letterDiv.id = i;
   letterDiv.style.display = "inline-block";
@@ -54,9 +59,50 @@ divs.forEach((el, index) => {
     letterClick(index);
   });
 });
+
 const letterClick = (index) => {
   let letters = document.getElementsByClassName("letter");
   let letter = letters[index].innerHTML;
+
+  let upperCaseWord = word.toUpperCase();
+  let upperCaseLetter = letter.toUpperCase();
+
+  if (upperCaseWord.includes(upperCaseLetter)) {
+    for (let i = 0; i < upperCaseWord.length; i++) {
+      if (upperCaseWord[i] === upperCaseLetter) {
+        document.getElementById(i).style.visibility = "visible";
+        if (letters[index].style.backgroundColor == "green") {
+          return;
+        }
+        winningIndex++;
+        if (winningIndex == word.length) {
+          setTimeout(() => {
+            alert("YOU SURVIVED");
+            location.reload();
+          }, 200);
+        }
+      }
+    }
+    letters[index].style.backgroundColor = "green";
+  } else {
+    if (letters[index].style.backgroundColor == "red") {
+      return;
+    }
+    functions[tryIndex]();
+    letters[index].style.backgroundColor = "red";
+    if (tryIndex == 5) {
+      console.log("YOU DIED");
+      for (let i = 0; i < upperCaseWord.length; i++) {
+        document.getElementById(i).style.visibility = "visible";
+      }
+      setTimeout(() => {
+        alert("YOU DIED");
+        location.reload();
+      }, 300);
+      return;
+    }
+    tryIndex++;
+  }
 };
 
 document.addEventListener("keypress", (event) => {
